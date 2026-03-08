@@ -856,6 +856,17 @@ body {
   font-size: 13px;
   color: var(--folk-brown);
   line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.people-doll-fact {
+  font-size: 12px;
+  color: var(--folk-brown-mid);
+  line-height: 1.45;
+  font-style: italic;
+  border-top: 1px dashed var(--folk-cream-dark);
+  padding-top: 5px;
+  margin-top: 2px;
 }
 
 /* ============ НИЖНЯЯ НАВИГАЦИЯ ============ */
