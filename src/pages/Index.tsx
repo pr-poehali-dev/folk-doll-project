@@ -4,6 +4,7 @@ const DOLL_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0
 const MATERIALS_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/aec4ec33-2922-432a-8e88-6484145c9ae5.jpg";
 const GALLERY_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/36cdff6d-f1d8-4e0e-9117-ff58122d783e.jpg";
 const PEOPLES_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/8c12a248-1111-4844-bf9e-75e6dd025fb8.jpg";
+const COSTUMES_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/13bfaed5-752a-4593-afcd-301c7d7b518c.jpg";
 
 const slides = [
   { id: 0, label: "Введение" },
@@ -11,7 +12,19 @@ const slides = [
   { id: 2, label: "Материалы" },
   { id: 3, label: "Мастер-класс" },
   { id: 4, label: "Галерея" },
-  { id: 5, label: "Значение" },
+  { id: 5, label: "Народы России" },
+  { id: 6, label: "Значение" },
+];
+
+const PEOPLES = [
+  { name: "Русские", region: "Центральная Россия", costume: "Сарафан, кокошник, рубаха с вышивкой", color: "#8B1A1A" },
+  { name: "Татары", region: "Татарстан, Поволжье", costume: "Калфак, платье с позументом, читек", color: "#003DA5" },
+  { name: "Башкиры", region: "Республика Башкортостан", costume: "Елян, нагрудник хакал, тюбетейка", color: "#2D5016" },
+  { name: "Чуваши", region: "Чувашская Республика", costume: "Белое платье с красной вышивкой тевет", color: "#7A4A1A" },
+  { name: "Якуты", region: "Республика Саха (Якутия)", costume: "Меховой кафтан, унты, расшитая шапка", color: "#4A2C8A" },
+  { name: "Буряты", region: "Бурятия, Забайкалье", costume: "Дэгэл — халат из кожи и ткани с орнаментом", color: "#8B5A00" },
+  { name: "Чеченцы", region: "Чеченская Республика", costume: "Папаха, черкеска, газыри на груди", color: "#1A4A1A" },
+  { name: "Мордва", region: "Республика Мордовия", costume: "Панар — рубаха с богатой вышивкой пулай", color: "#8B1A5A" },
 ];
 
 export default function Index() {
@@ -278,8 +291,52 @@ export default function Index() {
           </div>
         )}
 
-        {/* СЛАЙД 5 — ЗНАЧЕНИЕ */}
+        {/* СЛАЙД 5 — НАРОДЫ РОССИИ */}
         {current === 5 && (
+          <div className="slide slide-peoples animate-slide-in">
+            <div className="slide-border-top"/>
+            <div className="slide-header-block">
+              <p className="slide-number">05</p>
+              <h2 className="slide-title">Народы России</h2>
+              <div className="divider-folk"><span>✦</span><span className="divider-line"/><span>✦</span></div>
+            </div>
+            <div className="peoples-layout">
+              <div className="peoples-photo-col">
+                <div className="gallery-img-frame">
+                  <img src={PEOPLES_IMG} alt="Народы России" className="peoples-photo-main"/>
+                  <div className="gallery-caption">Народы России в национальных костюмах</div>
+                </div>
+                <div className="gallery-img-frame">
+                  <img src={COSTUMES_IMG} alt="Национальные костюмы" className="peoples-photo-main"/>
+                  <div className="gallery-caption">Традиционные национальные костюмы</div>
+                </div>
+                <div className="peoples-unity-box">
+                  <div className="rf-flag-lg">
+                    <div className="rf-flag-white"/>
+                    <div className="rf-flag-blue"/>
+                    <div className="rf-flag-red"/>
+                  </div>
+                  <p>В России живут представители более <strong>190 народов</strong> — и все они вместе создают великую страну!</p>
+                </div>
+              </div>
+              <div className="peoples-cards-col">
+                {PEOPLES.map((p) => (
+                  <div key={p.name} className="people-card" style={{ borderLeftColor: p.color }}>
+                    <div className="people-card-header">
+                      <span className="people-name" style={{ color: p.color }}>{p.name}</span>
+                      <span className="people-region">{p.region}</span>
+                    </div>
+                    <p className="people-costume">👗 {p.costume}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="slide-border-bottom"/>
+          </div>
+        )}
+
+        {/* СЛАЙД 6 — ЗНАЧЕНИЕ */}
+        {current === 6 && (
           <div className="slide slide-meaning animate-slide-in">
             <div className="slide-border-top"/>
             <div className="slide-header-block">
