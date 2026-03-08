@@ -3,6 +3,7 @@ import { useState } from "react";
 const DOLL_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/4c3688ec-ab56-48c4-af21-db0dc79b878f.jpg";
 const MATERIALS_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/aec4ec33-2922-432a-8e88-6484145c9ae5.jpg";
 const GALLERY_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/36cdff6d-f1d8-4e0e-9117-ff58122d783e.jpg";
+const PEOPLES_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/8c12a248-1111-4844-bf9e-75e6dd025fb8.jpg";
 
 const slides = [
   { id: 0, label: "Введение" },
@@ -41,16 +42,31 @@ export default function Index() {
 
       {/* Шапка */}
       <header className="pres-header">
+        {/* Флаг РФ */}
+        <div className="rf-flag" aria-label="Флаг России">
+          <div className="rf-flag-white"/>
+          <div className="rf-flag-blue"/>
+          <div className="rf-flag-red"/>
+        </div>
         <div className="header-ornament">
           <span className="ornament-line"/>
           <span className="ornament-diamond">◆</span>
           <span className="ornament-line"/>
         </div>
-        <p className="header-year">Год народного единства</p>
+        <div className="header-center">
+          <p className="header-year">Год народного единства</p>
+          <p className="header-sub">Народы России — единая семья</p>
+        </div>
         <div className="header-ornament">
           <span className="ornament-line"/>
           <span className="ornament-diamond">◆</span>
           <span className="ornament-line"/>
+        </div>
+        {/* Флаг РФ (правый) */}
+        <div className="rf-flag" aria-hidden="true">
+          <div className="rf-flag-white"/>
+          <div className="rf-flag-blue"/>
+          <div className="rf-flag-red"/>
         </div>
       </header>
 
@@ -96,12 +112,22 @@ export default function Index() {
                 </div>
               </div>
               <div className="intro-right">
-                <div className="intro-img-frame">
-                  <img src={DOLL_IMG} alt="Кукла из лыка" className="intro-img"/>
-                  <div className="img-corner img-corner-tl"/>
-                  <div className="img-corner img-corner-tr"/>
-                  <div className="img-corner img-corner-bl"/>
-                  <div className="img-corner img-corner-br"/>
+                <div className="intro-imgs-col">
+                  <div className="intro-img-frame">
+                    <img src={DOLL_IMG} alt="Кукла из лыка" className="intro-img"/>
+                    <div className="img-corner img-corner-tl"/>
+                    <div className="img-corner img-corner-tr"/>
+                    <div className="img-corner img-corner-bl"/>
+                    <div className="img-corner img-corner-br"/>
+                  </div>
+                  <div className="intro-img-frame">
+                    <img src={PEOPLES_IMG} alt="Народы России в костюмах" className="intro-img intro-img-peoples"/>
+                    <div className="img-corner img-corner-tl"/>
+                    <div className="img-corner img-corner-tr"/>
+                    <div className="img-corner img-corner-bl"/>
+                    <div className="img-corner img-corner-br"/>
+                    <div className="peoples-caption">Народы России в национальных костюмах</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -285,13 +311,29 @@ export default function Index() {
                 </div>
               </div>
               <div className="final-banner">
-                <div className="banner-ornament">✦ ✦ ✦</div>
-                <h3 className="banner-title">Мы — хранители традиций!</h3>
-                <p className="banner-text">
-                  Создавая народную куклу, каждый ученик прикасается к многовековой истории России,
-                  вносит свой вклад в сохранение живого культурного наследия нашей страны.
-                </p>
-                <div className="banner-ornament">✦ ✦ ✦</div>
+                <div className="final-banner-inner">
+                  <div className="final-banner-text">
+                    <div className="banner-ornament">✦ ✦ ✦</div>
+                    <h3 className="banner-title">Мы — хранители традиций!</h3>
+                    <p className="banner-text">
+                      Создавая народную куклу, каждый ученик прикасается к многовековой истории России,
+                      вносит свой вклад в сохранение живого культурного наследия нашей страны.
+                    </p>
+                    <div className="banner-flags">
+                      <div className="rf-flag-lg" aria-label="Флаг России">
+                        <div className="rf-flag-white"/>
+                        <div className="rf-flag-blue"/>
+                        <div className="rf-flag-red"/>
+                      </div>
+                      <span className="banner-flag-label">Россия — многонациональная страна</span>
+                    </div>
+                    <div className="banner-ornament">✦ ✦ ✦</div>
+                  </div>
+                  <div className="final-banner-img-wrap">
+                    <img src={PEOPLES_IMG} alt="Народы России" className="final-banner-img"/>
+                    <div className="final-banner-img-caption">Народы России в национальных костюмах</div>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="slide-border-bottom"/>

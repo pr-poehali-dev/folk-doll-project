@@ -670,6 +670,121 @@ body {
   margin: 0 auto 10px;
 }
 
+/* ============ ФЛАГ РФ ============ */
+.rf-flag {
+  display: flex;
+  flex-direction: column;
+  width: 38px;
+  height: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.rf-flag-white {
+  flex: 1;
+  background: #fff;
+}
+.rf-flag-blue {
+  flex: 1;
+  background: #003da5;
+}
+.rf-flag-red {
+  flex: 1;
+  background: #cc0000;
+}
+
+.rf-flag-lg {
+  display: flex;
+  flex-direction: column;
+  width: 54px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.header-center {
+  text-align: center;
+}
+
+.header-sub {
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--folk-cream);
+  opacity: 0.7;
+  letter-spacing: 1.5px;
+  margin-top: 2px;
+}
+
+/* Колонка из двух фото на введении */
+.intro-imgs-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.intro-img-peoples {
+  height: 180px !important;
+}
+
+.peoples-caption {
+  text-align: center;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--folk-brown-mid);
+  padding: 5px 0 2px;
+  font-family: var(--font-display);
+}
+
+/* Финальный баннер с фото народов */
+.final-banner-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+}
+
+.final-banner-text {
+  text-align: center;
+}
+
+.final-banner-img {
+  width: 200px;
+  height: 160px;
+  object-fit: cover;
+  border: 2px solid var(--folk-gold);
+  display: block;
+}
+
+.final-banner-img-caption {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--folk-gold-light);
+  text-align: center;
+  padding-top: 5px;
+  font-family: var(--font-display);
+  opacity: 0.8;
+}
+
+.banner-flags {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.banner-flag-label {
+  font-size: 13px;
+  color: var(--folk-cream);
+  opacity: 0.85;
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
 /* ============ НИЖНЯЯ НАВИГАЦИЯ ============ */
 .pres-footer {
   position: relative;
