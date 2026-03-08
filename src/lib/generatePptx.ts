@@ -19,15 +19,40 @@ const IMG_URLS = {
   costumes:  "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/13bfaed5-752a-4593-afcd-301c7d7b518c.jpg",
 };
 
-async function toBase64(url: string): Promise<string> {
-  const res = await fetch(url);
-  const blob = await res.blob();
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve((reader.result as string).split(",")[1]);
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
+async function toBase64(url: string): Promise<string | null> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(img, 0, 0);
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+        resolve(dataUrl.split(",")[1]);
+      } catch {
+        resolve(null);
+      }
+    };
+    img.onerror = () => resolve(null);
+    img.src = url;
   });
+}
+
+function addImgOrPlaceholder(
+  s: pptxgen.Slide,
+  data: string | null,
+  x: number, y: number, w: number, h: number,
+  label = ""
+) {
+  if (data) {
+    s.addImage({ data: "jpeg;base64," + data, x, y, w, h });
+  } else {
+    s.addShape("rect", { x, y, w, h, fill: { color: CREAM_DARK }, line: { color: GOLD, width: 0.5 } });
+    if (label) s.addText(label, { x, y: y + h / 2 - 0.2, w, h: 0.4, fontSize: 10, italic: true, color: BROWN_MID, align: "center" });
+  }
 }
 
 function addBackground(slide: pptxgen.Slide) {
@@ -101,7 +126,7 @@ export async function generatePptx() {
     s.addText("🤝  Народное единство — в традициях и ремёслах", {
       x: 0.7, y: 3.95, w: 4.5, h: 0.44, fontSize: 12, color: CREAM, bold: true,
     });
-    s.addImage({ data: "jpeg;base64," + DOLL_IMG, x: 5.6, y: 0.75, w: 3.9, h: 3.9 });
+    addImgOrPlaceholder(s, DOLL_IMG, 5.6, 0.75, 3.9, 3.9, "Кукла из лыка");
     s.addShape("rect", { x: 5.55, y: 0.7, w: 4, h: 4, fill: { type: "none" }, line: { color: GOLD, width: 1.5 } });
   }
 
@@ -136,7 +161,7 @@ export async function generatePptx() {
     addHeader(s);
     addFooterLine(s);
     addSlideTitle(s, "02", "Материалы и инструменты");
-    s.addImage({ data: "jpeg;base64," + MATERIALS_IMG, x: 0.4, y: 1.7, w: 3.5, h: 3.5 });
+    addImgOrPlaceholder(s, MATERIALS_IMG, 0.4, 1.7, 3.5, 3.5, "Материалы");
     s.addShape("rect", { x: 0.35, y: 1.65, w: 3.6, h: 3.6, fill: { type: "none" }, line: { color: GOLD, width: 1.5 } });
     const matTitle = (text: string, y: number) =>
       s.addText(text, { x: 4.2, y, w: 5.4, h: 0.35, fontSize: 14, bold: true, color: CRIMSON });
@@ -196,12 +221,12 @@ export async function generatePptx() {
     addHeader(s);
     addFooterLine(s);
     addSlideTitle(s, "04", "Галерея работ");
-    s.addImage({ data: "jpeg;base64," + GALLERY_IMG, x: 0.4, y: 1.72, w: 5.5, h: 3.5 });
+    addImgOrPlaceholder(s, GALLERY_IMG, 0.4, 1.72, 5.5, 3.5, "Галерея кукол");
     s.addShape("rect", { x: 0.35, y: 1.67, w: 5.6, h: 3.6, fill: { type: "none" }, line: { color: GOLD, width: 1.5 } });
     s.addText("Традиционные народные куклы России", { x: 0.35, y: 5.3, w: 5.6, h: 0.3, fontSize: 10, italic: true, color: BROWN_MID, align: "center" });
-    s.addImage({ data: "jpeg;base64," + DOLL_IMG, x: 6.2, y: 1.72, w: 3.4, h: 1.9 });
+    addImgOrPlaceholder(s, DOLL_IMG, 6.2, 1.72, 3.4, 1.9, "Кукла из лыка");
     s.addShape("rect", { x: 6.15, y: 1.67, w: 3.5, h: 1.95, fill: { type: "none" }, line: { color: GOLD, width: 1 } });
-    s.addImage({ data: "jpeg;base64," + MATERIALS_IMG, x: 6.2, y: 3.75, w: 3.4, h: 1.45 });
+    addImgOrPlaceholder(s, MATERIALS_IMG, 6.2, 3.75, 3.4, 1.45, "Материалы");
     s.addShape("rect", { x: 6.15, y: 3.7, w: 3.5, h: 1.5, fill: { type: "none" }, line: { color: GOLD, width: 1 } });
     s.addShape("rect", { x: 6.15, y: 5.28, w: 3.5, h: 0.88, fill: { color: CRIMSON }, line: { color: GOLD, width: 1 } });
     s.addShape("rect", { x: 6.15, y: 5.28, w: 0.08, h: 0.88, fill: { color: GOLD } });
@@ -217,9 +242,9 @@ export async function generatePptx() {
     addHeader(s);
     addFooterLine(s);
     addSlideTitle(s, "05", "Народы России");
-    s.addImage({ data: "jpeg;base64," + PEOPLES_IMG, x: 0.4, y: 1.72, w: 3.0, h: 2.1 });
+    addImgOrPlaceholder(s, PEOPLES_IMG, 0.4, 1.72, 3.0, 2.1, "Народы России");
     s.addShape("rect", { x: 0.35, y: 1.67, w: 3.1, h: 2.15, fill: { type: "none" }, line: { color: GOLD, width: 1.2 } });
-    s.addImage({ data: "jpeg;base64," + COSTUMES_IMG, x: 0.4, y: 3.95, w: 3.0, h: 1.8 });
+    addImgOrPlaceholder(s, COSTUMES_IMG, 0.4, 3.95, 3.0, 1.8, "Национальные костюмы");
     s.addShape("rect", { x: 0.35, y: 3.9, w: 3.1, h: 1.85, fill: { type: "none" }, line: { color: GOLD, width: 1.2 } });
     s.addShape("rect", { x: 0.35, y: 5.85, w: 3.1, h: 0.75, fill: { color: CRIMSON }, line: { color: GOLD, width: 1 } });
     addRfFlag(s, 0.48, 5.95, 0.5, 0.33);
