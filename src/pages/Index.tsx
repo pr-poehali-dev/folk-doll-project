@@ -1,14 +1,324 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
 
-const Index = () => {
+const DOLL_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/4c3688ec-ab56-48c4-af21-db0dc79b878f.jpg";
+const MATERIALS_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/aec4ec33-2922-432a-8e88-6484145c9ae5.jpg";
+const GALLERY_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/36cdff6d-f1d8-4e0e-9117-ff58122d783e.jpg";
+
+const slides = [
+  { id: 0, label: "Введение" },
+  { id: 1, label: "История" },
+  { id: 2, label: "Материалы" },
+  { id: 3, label: "Мастер-класс" },
+  { id: 4, label: "Галерея" },
+  { id: 5, label: "Значение" },
+];
+
+export default function Index() {
+  const [current, setCurrent] = useState(0);
+
+  const prev = () => setCurrent((c) => Math.max(0, c - 1));
+  const next = () => setCurrent((c) => Math.min(slides.length - 1, c + 1));
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
+    <div className="presentation-root">
+      {/* Фоновый орнамент */}
+      <div className="bg-ornament" aria-hidden="true">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="folk" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+              <rect width="80" height="80" fill="none"/>
+              <path d="M40 4 L44 20 L60 20 L47 30 L52 46 L40 36 L28 46 L33 30 L20 20 L36 20 Z" fill="none" stroke="#b5341e" strokeWidth="0.6" opacity="0.18"/>
+              <circle cx="40" cy="40" r="2.5" fill="#b5341e" opacity="0.12"/>
+              <path d="M0 40 Q10 30 20 40 Q30 50 40 40 Q50 30 60 40 Q70 50 80 40" fill="none" stroke="#c8860a" strokeWidth="0.5" opacity="0.15"/>
+              <path d="M40 0 Q30 10 40 20 Q50 30 40 40 Q30 50 40 60 Q50 70 40 80" fill="none" stroke="#c8860a" strokeWidth="0.5" opacity="0.15"/>
+              <rect x="2" y="2" width="8" height="8" fill="none" stroke="#b5341e" strokeWidth="0.5" opacity="0.1" transform="rotate(45 6 6)"/>
+              <rect x="70" y="70" width="8" height="8" fill="none" stroke="#b5341e" strokeWidth="0.5" opacity="0.1" transform="rotate(45 74 74)"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#folk)"/>
+        </svg>
       </div>
+
+      {/* Шапка */}
+      <header className="pres-header">
+        <div className="header-ornament">
+          <span className="ornament-line"/>
+          <span className="ornament-diamond">◆</span>
+          <span className="ornament-line"/>
+        </div>
+        <p className="header-year">Год народного единства</p>
+        <div className="header-ornament">
+          <span className="ornament-line"/>
+          <span className="ornament-diamond">◆</span>
+          <span className="ornament-line"/>
+        </div>
+      </header>
+
+      {/* Навигация по слайдам */}
+      <nav className="slide-nav">
+        {slides.map((s) => (
+          <button
+            key={s.id}
+            className={`nav-dot ${current === s.id ? "active" : ""}`}
+            onClick={() => setCurrent(s.id)}
+            title={s.label}
+          >
+            <span className="nav-label">{s.label}</span>
+          </button>
+        ))}
+      </nav>
+
+      {/* Слайды */}
+      <main className="slides-container">
+
+        {/* СЛАЙД 0 — ВВЕДЕНИЕ */}
+        {current === 0 && (
+          <div className="slide slide-intro animate-slide-in">
+            <div className="slide-border-top"/>
+            <div className="intro-content">
+              <div className="intro-left">
+                <p className="slide-eyebrow">Мастер-класс для учеников начальной школы</p>
+                <h1 className="intro-title">
+                  Кукла<br/>
+                  <em>из липового</em><br/>
+                  лыка
+                </h1>
+                <div className="divider-folk">
+                  <span>✦</span><span className="divider-line"/><span>✦</span>
+                </div>
+                <p className="intro-text">
+                  Народное ремесло как живая нить между поколениями.
+                  Прикоснись к мудрости предков — свяжи собственную куклу-оберег.
+                </p>
+                <div className="unity-badge">
+                  <span className="unity-icon">🤝</span>
+                  <span>Народное единство — в традициях и ремёслах</span>
+                </div>
+              </div>
+              <div className="intro-right">
+                <div className="intro-img-frame">
+                  <img src={DOLL_IMG} alt="Кукла из лыка" className="intro-img"/>
+                  <div className="img-corner img-corner-tl"/>
+                  <div className="img-corner img-corner-tr"/>
+                  <div className="img-corner img-corner-bl"/>
+                  <div className="img-corner img-corner-br"/>
+                </div>
+              </div>
+            </div>
+            <div className="slide-border-bottom"/>
+          </div>
+        )}
+
+        {/* СЛАЙД 1 — ИСТОРИЯ */}
+        {current === 1 && (
+          <div className="slide slide-history animate-slide-in">
+            <div className="slide-border-top"/>
+            <div className="slide-header-block">
+              <p className="slide-number">01</p>
+              <h2 className="slide-title">История ремесла</h2>
+              <div className="divider-folk"><span>✦</span><span className="divider-line"/><span>✦</span></div>
+            </div>
+            <div className="history-grid">
+              <div className="history-card">
+                <div className="card-icon">🌿</div>
+                <h3>Древние корни</h3>
+                <p>Куклы из лыка появились на Руси более <strong>2000 лет назад</strong>. Липовое лыко — кора молодой липы — было доступно каждой семье и считалось «живым» материалом.</p>
+              </div>
+              <div className="history-card">
+                <div className="card-icon">🏠</div>
+                <h3>Семейное дело</h3>
+                <p>Куклу делали <strong>сообща</strong> — бабушки, матери, дети. Передавая умения из рук в руки, хранили память о предках и укрепляли родовые связи.</p>
+              </div>
+              <div className="history-card">
+                <div className="card-icon">🛡️</div>
+                <h3>Кукла-оберег</h3>
+                <p>Народная кукла — это не игрушка, а <strong>защитница</strong> дома. В неё вкладывали добрые пожелания, её дарили на свадьбу, рождение ребёнка, в дорогу.</p>
+              </div>
+              <div className="history-card">
+                <div className="card-icon">🇷🇺</div>
+                <h3>Единство народов</h3>
+                <p>Традиция плетения кукол объединяла <strong>разные народы России</strong> — от мещёрских лесов до сибирских просторов. Общее ремесло — общая душа.</p>
+              </div>
+            </div>
+            <div className="slide-border-bottom"/>
+          </div>
+        )}
+
+        {/* СЛАЙД 2 — МАТЕРИАЛЫ */}
+        {current === 2 && (
+          <div className="slide slide-materials animate-slide-in">
+            <div className="slide-border-top"/>
+            <div className="slide-header-block">
+              <p className="slide-number">02</p>
+              <h2 className="slide-title">Материалы и инструменты</h2>
+              <div className="divider-folk"><span>✦</span><span className="divider-line"/><span>✦</span></div>
+            </div>
+            <div className="materials-content">
+              <div className="materials-left">
+                <img src={MATERIALS_IMG} alt="Материалы" className="materials-img"/>
+              </div>
+              <div className="materials-right">
+                <div className="materials-section">
+                  <h3 className="materials-heading">🌳 Основные материалы</h3>
+                  <ul className="materials-list">
+                    <li><span className="mat-bullet">◆</span><strong>Липовое лыко</strong> — полоски коры шириной 1–2 см, предварительно замоченные в воде</li>
+                    <li><span className="mat-bullet">◆</span><strong>Льняные нити</strong> — для связывания частей куклы</li>
+                    <li><span className="mat-bullet">◆</span><strong>Лоскут ткани</strong> — для наряда (ситец, холст)</li>
+                    <li><span className="mat-bullet">◆</span><strong>Солома или вата</strong> — для набивки тела</li>
+                  </ul>
+                </div>
+                <div className="materials-section">
+                  <h3 className="materials-heading">🔧 Инструменты</h3>
+                  <ul className="materials-list">
+                    <li><span className="mat-bullet">◆</span><strong>Ножницы</strong> — для обрезки лыка</li>
+                    <li><span className="mat-bullet">◆</span><strong>Шило или игла</strong> — для протягивания нитей</li>
+                    <li><span className="mat-bullet">◆</span><strong>Тазик с водой</strong> — для замачивания лыка</li>
+                    <li><span className="mat-bullet">◆</span><strong>Прищепки</strong> — для фиксации при сушке</li>
+                  </ul>
+                </div>
+                <div className="tip-box">
+                  <span className="tip-icon">💡</span>
+                  <p>Лыко нужно замочить в тёплой воде <strong>на 20–30 минут</strong> перед работой — тогда оно станет гибким и послушным!</p>
+                </div>
+              </div>
+            </div>
+            <div className="slide-border-bottom"/>
+          </div>
+        )}
+
+        {/* СЛАЙД 3 — ПОШАГОВАЯ ИНСТРУКЦИЯ */}
+        {current === 3 && (
+          <div className="slide slide-steps animate-slide-in">
+            <div className="slide-border-top"/>
+            <div className="slide-header-block">
+              <p className="slide-number">03</p>
+              <h2 className="slide-title">Пошаговая инструкция</h2>
+              <div className="divider-folk"><span>✦</span><span className="divider-line"/><span>✦</span></div>
+            </div>
+            <div className="steps-grid">
+              {[
+                { step: "1", title: "Подготовка лыка", desc: "Замочите полоски лыка в тёплой воде на 20–30 минут. Отберите ровные полоски одинаковой ширины — они должны легко гнуться.", icon: "💧" },
+                { step: "2", title: "Формирование головы", desc: "Сложите пучок лыка пополам. Место сгиба туго обмотайте нитью — это будет шея. Верхняя часть пучка формирует голову.", icon: "⭕" },
+                { step: "3", title: "Руки куклы", desc: "Отдельный пучок лыка сложите вдвое и переплетите — это руки. Вставьте их поперёк туловища под уровнем шеи и зафиксируйте нитью.", icon: "🤲" },
+                { step: "4", title: "Туловище и косы", desc: "Нижнюю часть разделите на 2–3 пряди. Заплетите косичку или перетяните нитью для юбки. Хвосты подрежьте ровно.", icon: "🧶" },
+                { step: "5", title: "Наряд куклы", desc: "Нарядите куклу в лоскут ткани — пояском обвяжите талию. Можно вышить крестиком красным узором по рубашке.", icon: "🎀" },
+                { step: "6", title: "Сушка и оберег", desc: "Дайте кукле высохнуть 2–3 часа. Готового оберега можно подарить близким или повесить у порога дома.", icon: "✨" },
+              ].map((item) => (
+                <div key={item.step} className="step-card">
+                  <div className="step-header">
+                    <div className="step-num">{item.step}</div>
+                    <span className="step-icon">{item.icon}</span>
+                  </div>
+                  <h3 className="step-title">{item.title}</h3>
+                  <p className="step-desc">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+            <div className="slide-border-bottom"/>
+          </div>
+        )}
+
+        {/* СЛАЙД 4 — ГАЛЕРЕЯ */}
+        {current === 4 && (
+          <div className="slide slide-gallery animate-slide-in">
+            <div className="slide-border-top"/>
+            <div className="slide-header-block">
+              <p className="slide-number">04</p>
+              <h2 className="slide-title">Галерея работ</h2>
+              <div className="divider-folk"><span>✦</span><span className="divider-line"/><span>✦</span></div>
+            </div>
+            <div className="gallery-layout">
+              <div className="gallery-main">
+                <div className="gallery-img-frame">
+                  <img src={GALLERY_IMG} alt="Народные куклы" className="gallery-img-main"/>
+                  <div className="gallery-caption">Традиционные народные куклы России</div>
+                </div>
+              </div>
+              <div className="gallery-side">
+                <div className="gallery-img-frame">
+                  <img src={DOLL_IMG} alt="Кукла из лыка" className="gallery-img-side"/>
+                  <div className="gallery-caption">Кукла-оберег из лыка</div>
+                </div>
+                <div className="gallery-img-frame">
+                  <img src={MATERIALS_IMG} alt="Материалы" className="gallery-img-side"/>
+                  <div className="gallery-caption">Натуральные материалы</div>
+                </div>
+                <div className="gallery-quote">
+                  <p>«В каждой кукле — душа мастера и любовь к родной земле»</p>
+                </div>
+              </div>
+            </div>
+            <div className="slide-border-bottom"/>
+          </div>
+        )}
+
+        {/* СЛАЙД 5 — ЗНАЧЕНИЕ */}
+        {current === 5 && (
+          <div className="slide slide-meaning animate-slide-in">
+            <div className="slide-border-top"/>
+            <div className="slide-header-block">
+              <p className="slide-number">05</p>
+              <h2 className="slide-title">Культурное значение</h2>
+              <div className="divider-folk"><span>✦</span><span className="divider-line"/><span>✦</span></div>
+            </div>
+            <div className="meaning-content">
+              <div className="symbols-grid">
+                <div className="symbol-card">
+                  <div className="symbol-icon">🌾</div>
+                  <h3>Связь с природой</h3>
+                  <p>Лыко — живой материал земли. Работая с ним, мы учимся беречь природу и понимать её мудрость.</p>
+                </div>
+                <div className="symbol-card">
+                  <div className="symbol-icon">👨‍👩‍👧</div>
+                  <h3>Семейные традиции</h3>
+                  <p>Народная кукла — символ дома, семьи и преемственности поколений. Это нить из прошлого в будущее.</p>
+                </div>
+                <div className="symbol-card">
+                  <div className="symbol-icon">🇷🇺</div>
+                  <h3>Народное единство</h3>
+                  <p>Ремёсла объединяли все народы нашей страны. Общий труд и общие традиции — основа единой России.</p>
+                </div>
+                <div className="symbol-card">
+                  <div className="symbol-icon">✋</div>
+                  <h3>Живая культура</h3>
+                  <p>Когда мы создаём куклу своими руками, традиция оживает. Каждый из нас становится хранителем культуры.</p>
+                </div>
+              </div>
+              <div className="final-banner">
+                <div className="banner-ornament">✦ ✦ ✦</div>
+                <h3 className="banner-title">Мы — хранители традиций!</h3>
+                <p className="banner-text">
+                  Создавая народную куклу, каждый ученик прикасается к многовековой истории России,
+                  вносит свой вклад в сохранение живого культурного наследия нашей страны.
+                </p>
+                <div className="banner-ornament">✦ ✦ ✦</div>
+              </div>
+            </div>
+            <div className="slide-border-bottom"/>
+          </div>
+        )}
+      </main>
+
+      {/* Нижняя навигация */}
+      <footer className="pres-footer">
+        <button
+          className="nav-btn"
+          onClick={prev}
+          disabled={current === 0}
+        >
+          ← Назад
+        </button>
+        <div className="slide-counter">
+          {current + 1} / {slides.length}
+        </div>
+        <button
+          className="nav-btn"
+          onClick={next}
+          disabled={current === slides.length - 1}
+        >
+          Вперёд →
+        </button>
+      </footer>
     </div>
   );
-};
-
-export default Index;
+}
