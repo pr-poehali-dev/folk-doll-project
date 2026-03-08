@@ -14,6 +14,9 @@ const slides = [
   { id: 4, label: "Галерея" },
   { id: 5, label: "Народы России" },
   { id: 6, label: "Значение" },
+  { id: 7, label: "Цифровой оберег" },
+  { id: 8, label: "Угрозы в сети" },
+  { id: 9, label: "Правила защиты" },
 ];
 
 const PEOPLES = [
@@ -397,6 +400,178 @@ export default function Index() {
             <div className="slide-border-bottom"/>
           </div>
         )}
+
+        {/* СЛАЙД 7 — ЦИФРОВОЙ ОБЕРЕГ */}
+        {current === 7 && (
+          <div className="slide slide-infosec animate-slide-in">
+            <div className="slide-border-top"/>
+            <div className="slide-header-block">
+              <p className="slide-number">07</p>
+              <h2 className="slide-title">Цифровой оберег</h2>
+              <div className="divider-folk"><span>✦</span><span className="divider-line"/><span>✦</span></div>
+            </div>
+            <div className="infosec-intro-layout">
+              <div className="infosec-left">
+                <div className="infosec-metaphor-box">
+                  <div className="infosec-metaphor-icon">🪆</div>
+                  <div>
+                    <h3 className="infosec-metaphor-title">Кукла — оберег дома.<br/>Знания — оберег в цифровом мире.</h3>
+                    <p className="infosec-metaphor-text">
+                      Наши предки создавали куклу-оберег, чтобы защитить дом от бед. В современном мире
+                      у каждого из нас есть цифровой дом — компьютер, телефон, аккаунты в сети.
+                      И этот дом тоже нуждается в защите.
+                    </p>
+                  </div>
+                </div>
+                <div className="infosec-definition">
+                  <h3 className="infosec-def-title">Что такое информационная безопасность?</h3>
+                  <p className="infosec-def-text">
+                    Это защита информации и цифровых устройств от несанкционированного доступа,
+                    кражи, уничтожения и других угроз. Так же, как народная кукла охраняла дом,
+                    знания об инфобезопасности охраняют наши данные.
+                  </p>
+                </div>
+                <div className="infosec-stats-row">
+                  <div className="infosec-stat">
+                    <span className="infosec-stat-num">190+</span>
+                    <span className="infosec-stat-label">народов в России — все нуждаются в защите данных</span>
+                  </div>
+                  <div className="infosec-stat">
+                    <span className="infosec-stat-num">80%</span>
+                    <span className="infosec-stat-label">кибератак можно предотвратить базовыми знаниями</span>
+                  </div>
+                  <div className="infosec-stat">
+                    <span className="infosec-stat-num">2000</span>
+                    <span className="infosec-stat-label">лет назад появился первый оберег — сегодня он цифровой</span>
+                  </div>
+                </div>
+              </div>
+              <div className="infosec-right">
+                <div className="infosec-pillars">
+                  <h3 className="infosec-pillars-title">Три кита инфобезопасности</h3>
+                  {[
+                    { icon: "🔒", title: "Конфиденциальность", desc: "Информация доступна только тем, кому разрешено. Как секрет плетения куклы, который хранили в семье." },
+                    { icon: "🛡️", title: "Целостность", desc: "Данные не изменяются без разрешения. Как узор на кукле — каждая нить на своём месте." },
+                    { icon: "🌐", title: "Доступность", desc: "Нужная информация всегда доступна законному пользователю. Как знания о ремесле — они должны передаваться дальше." },
+                  ].map((item) => (
+                    <div key={item.title} className="infosec-pillar-card">
+                      <div className="infosec-pillar-icon">{item.icon}</div>
+                      <div>
+                        <h4 className="infosec-pillar-title">{item.title}</h4>
+                        <p className="infosec-pillar-desc">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="slide-border-bottom"/>
+          </div>
+        )}
+
+        {/* СЛАЙД 8 — УГРОЗЫ В СЕТИ */}
+        {current === 8 && (
+          <div className="slide slide-threats animate-slide-in">
+            <div className="slide-border-top"/>
+            <div className="slide-header-block">
+              <p className="slide-number">08</p>
+              <h2 className="slide-title">Угрозы в сети</h2>
+              <div className="divider-folk"><span>✦</span><span className="divider-line"/><span>✦</span></div>
+            </div>
+            <div className="threats-intro">
+              <p className="threats-lead">
+                Как злые духи в народных сказаниях угрожали дому, так и в цифровом мире существуют
+                реальные угрозы, которые важно знать и уметь распознавать.
+              </p>
+            </div>
+            <div className="threats-grid">
+              {[
+                { icon: "🎣", name: "Фишинг", level: "Высокий риск", color: "#8B1A1A", desc: "Мошенники притворяются знакомыми сайтами или людьми, чтобы выманить пароли и данные карты. Как лиса из сказки — говорит ласково, а сама хитрит.", signs: "Подозрительные ссылки, просьбы ввести пароль, странный адрес сайта" },
+                { icon: "🦠", name: "Вирусы и вредоносные программы", level: "Высокий риск", color: "#8B1A1A", desc: "Программы, которые тайно проникают в устройство и воруют данные или блокируют его работу. Невидимый враг, как в народных поверьях.", signs: "Медленная работа, странные сообщения, самопроизвольные действия" },
+                { icon: "🕵️", name: "Слежка и шпионаж", level: "Средний риск", color: "#8B5A00", desc: "Сбор данных о пользователе без его ведома — история поиска, геолокация, переписка. Как недобрый сосед, подглядывающий в щёлку.", signs: "Незнакомые приложения, странный расход батареи, доступ к камере" },
+                { icon: "💣", name: "DDoS-атаки", level: "Средний риск", color: "#8B5A00", desc: "Перегрузка сервиса тысячами запросов, чтобы он перестал работать. Как нашествие вредителей на урожай — всё разом сминают.", signs: "Сайт недоступен, очень медленная загрузка, сбои в работе сервисов" },
+                { icon: "🎭", name: "Социальная инженерия", level: "Высокий риск", color: "#8B1A1A", desc: "Манипуляции с людьми, чтобы они сами раскрыли секретную информацию. Хитрее любого вируса — бьёт по доверию.", signs: "Срочные просьбы, давление, слишком выгодные предложения" },
+                { icon: "🔓", name: "Слабые пароли", level: "Легко исправить", color: "#2D5016", desc: "Простые пароли — открытые ворота для злоумышленников. Как замок без засова: знай — войдут. Народная мудрость: «береги честь смолоду».", signs: "Пароль «12345», имя или дата рождения, один пароль на все сервисы" },
+              ].map((t) => (
+                <div key={t.name} className="threat-card" style={{ borderTopColor: t.color }}>
+                  <div className="threat-card-header">
+                    <span className="threat-icon">{t.icon}</span>
+                    <div>
+                      <h3 className="threat-name">{t.name}</h3>
+                      <span className="threat-level" style={{ color: t.color }}>⚠ {t.level}</span>
+                    </div>
+                  </div>
+                  <p className="threat-desc">{t.desc}</p>
+                  <div className="threat-signs">
+                    <span className="threat-signs-label">Признаки:</span> {t.signs}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="slide-border-bottom"/>
+          </div>
+        )}
+
+        {/* СЛАЙД 9 — ПРАВИЛА ЗАЩИТЫ */}
+        {current === 9 && (
+          <div className="slide slide-protection animate-slide-in">
+            <div className="slide-border-top"/>
+            <div className="slide-header-block">
+              <p className="slide-number">09</p>
+              <h2 className="slide-title">Правила защиты</h2>
+              <div className="divider-folk"><span>✦</span><span className="divider-line"/><span>✦</span></div>
+            </div>
+            <div className="protection-layout">
+              <div className="protection-rules">
+                {[
+                  { num: "1", icon: "🔑", title: "Надёжные пароли", rule: "Создавай длинные пароли из букв, цифр и символов. Разные пароли для разных сервисов. Используй менеджер паролей.", folk: "Как у куклы — каждый узел на своём месте, ни один нельзя пропустить." },
+                  { num: "2", icon: "🔄", title: "Обновляй программы", rule: "Регулярно обновляй операционную систему и приложения. В обновлениях закрываются дыры безопасности.", folk: "Как мастер подновляет куклу — поправляет нити, чтобы она служила долго." },
+                  { num: "3", icon: "🧐", title: "Проверяй источники", rule: "Не переходи по подозрительным ссылкам. Проверяй адрес сайта. Не открывай вложения от неизвестных.", folk: "Народная мудрость: «Не всё то золото, что блестит» — и в сети тоже." },
+                  { num: "4", icon: "🛡️", title: "Антивирус и файрвол", rule: "Установи надёжный антивирус и не отключай файрвол. Это цифровая стена-защитница твоего устройства.", folk: "Как оберег-кукла у порога — стоит на страже и не пускает злое." },
+                  { num: "5", icon: "🤫", title: "Не делись лишним", rule: "Не публикуй адрес, телефон, данные паспорта в открытом доступе. Личное — остаётся личным.", folk: "Мастера хранили секреты ремесла в семье — так и данные береги в кругу доверенных." },
+                  { num: "6", icon: "💾", title: "Делай резервные копии", rule: "Регулярно сохраняй важные файлы на внешнем носителе или в надёжном облаке.", folk: "Как передача мастерства из поколения в поколение — чтобы знание не пропало." },
+                ].map((r) => (
+                  <div key={r.num} className="protection-card">
+                    <div className="protection-card-left">
+                      <div className="protection-num">{r.num}</div>
+                      <div className="protection-icon">{r.icon}</div>
+                    </div>
+                    <div className="protection-card-right">
+                      <h3 className="protection-title">{r.title}</h3>
+                      <p className="protection-rule">{r.rule}</p>
+                      <p className="protection-folk">✦ {r.folk}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="protection-final">
+                <div className="banner-ornament" style={{ color: "var(--folk-gold)" }}>✦ ✦ ✦</div>
+                <div className="protection-final-icon">🪆🔒</div>
+                <h3 className="protection-final-title">Народная кукла и цифровой оберег</h3>
+                <p className="protection-final-text">
+                  Наши предки защищали дом куклой-оберегом, вложив в неё мудрость и любовь.
+                  Мы защищаем цифровой мир знаниями и бережным отношением к информации.
+                  <br/><br/>
+                  <strong>Единство народов России — в общих ценностях: доверии, заботе и ответственности.</strong>
+                  И в реальном, и в цифровом мире.
+                </p>
+                <div className="protection-flags">
+                  <div className="rf-flag-lg">
+                    <div className="rf-flag-white"/>
+                    <div className="rf-flag-blue"/>
+                    <div className="rf-flag-red"/>
+                  </div>
+                  <span style={{ color: "var(--folk-gold-light)", fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: "14px" }}>
+                    Россия — безопасная и единая страна
+                  </span>
+                </div>
+                <div className="banner-ornament" style={{ color: "var(--folk-gold)" }}>✦ ✦ ✦</div>
+              </div>
+            </div>
+            <div className="slide-border-bottom"/>
+          </div>
+        )}
+
       </main>
 
       {/* Нижняя навигация */}
