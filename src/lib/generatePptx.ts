@@ -11,11 +11,24 @@ const WHITE = "FFFFFF";
 const RF_BLUE = "003DA5";
 const RF_RED = "CC0000";
 
-const DOLL_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/4c3688ec-ab56-48c4-af21-db0dc79b878f.jpg";
-const MATERIALS_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/aec4ec33-2922-432a-8e88-6484145c9ae5.jpg";
-const GALLERY_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/36cdff6d-f1d8-4e0e-9117-ff58122d783e.jpg";
-const PEOPLES_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/8c12a248-1111-4844-bf9e-75e6dd025fb8.jpg";
-const COSTUMES_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/13bfaed5-752a-4593-afcd-301c7d7b518c.jpg";
+const IMG_URLS = {
+  doll:      "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/4c3688ec-ab56-48c4-af21-db0dc79b878f.jpg",
+  materials: "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/aec4ec33-2922-432a-8e88-6484145c9ae5.jpg",
+  gallery:   "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/36cdff6d-f1d8-4e0e-9117-ff58122d783e.jpg",
+  peoples:   "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/8c12a248-1111-4844-bf9e-75e6dd025fb8.jpg",
+  costumes:  "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/13bfaed5-752a-4593-afcd-301c7d7b518c.jpg",
+};
+
+async function toBase64(url: string): Promise<string> {
+  const res = await fetch(url);
+  const blob = await res.blob();
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve((reader.result as string).split(",")[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
 
 function addBackground(slide: pptxgen.Slide) {
   slide.background = { color: "FBF4E3" };
@@ -54,6 +67,14 @@ function addSlideTitle(slide: pptxgen.Slide, num: string, title: string) {
 }
 
 export async function generatePptx() {
+  const [DOLL_IMG, MATERIALS_IMG, GALLERY_IMG, PEOPLES_IMG, COSTUMES_IMG] = await Promise.all([
+    toBase64(IMG_URLS.doll),
+    toBase64(IMG_URLS.materials),
+    toBase64(IMG_URLS.gallery),
+    toBase64(IMG_URLS.peoples),
+    toBase64(IMG_URLS.costumes),
+  ]);
+
   const prs = new pptxgen();
   prs.layout = "LAYOUT_WIDE";
   prs.title = "Кукла из липового лыка — народное ремесло";
@@ -80,7 +101,7 @@ export async function generatePptx() {
     s.addText("🤝  Народное единство — в традициях и ремёслах", {
       x: 0.7, y: 3.95, w: 4.5, h: 0.44, fontSize: 12, color: CREAM, bold: true,
     });
-    s.addImage({ path: DOLL_IMG, x: 5.6, y: 0.75, w: 3.9, h: 3.9 });
+    s.addImage({ data: "jpeg;base64," + DOLL_IMG, x: 5.6, y: 0.75, w: 3.9, h: 3.9 });
     s.addShape("rect", { x: 5.55, y: 0.7, w: 4, h: 4, fill: { type: "none" }, line: { color: GOLD, width: 1.5 } });
   }
 
@@ -115,7 +136,7 @@ export async function generatePptx() {
     addHeader(s);
     addFooterLine(s);
     addSlideTitle(s, "02", "Материалы и инструменты");
-    s.addImage({ path: MATERIALS_IMG, x: 0.4, y: 1.7, w: 3.5, h: 3.5 });
+    s.addImage({ data: "jpeg;base64," + MATERIALS_IMG, x: 0.4, y: 1.7, w: 3.5, h: 3.5 });
     s.addShape("rect", { x: 0.35, y: 1.65, w: 3.6, h: 3.6, fill: { type: "none" }, line: { color: GOLD, width: 1.5 } });
     const matTitle = (text: string, y: number) =>
       s.addText(text, { x: 4.2, y, w: 5.4, h: 0.35, fontSize: 14, bold: true, color: CRIMSON });
@@ -175,12 +196,12 @@ export async function generatePptx() {
     addHeader(s);
     addFooterLine(s);
     addSlideTitle(s, "04", "Галерея работ");
-    s.addImage({ path: GALLERY_IMG, x: 0.4, y: 1.72, w: 5.5, h: 3.5 });
+    s.addImage({ data: "jpeg;base64," + GALLERY_IMG, x: 0.4, y: 1.72, w: 5.5, h: 3.5 });
     s.addShape("rect", { x: 0.35, y: 1.67, w: 5.6, h: 3.6, fill: { type: "none" }, line: { color: GOLD, width: 1.5 } });
     s.addText("Традиционные народные куклы России", { x: 0.35, y: 5.3, w: 5.6, h: 0.3, fontSize: 10, italic: true, color: BROWN_MID, align: "center" });
-    s.addImage({ path: DOLL_IMG, x: 6.2, y: 1.72, w: 3.4, h: 1.9 });
+    s.addImage({ data: "jpeg;base64," + DOLL_IMG, x: 6.2, y: 1.72, w: 3.4, h: 1.9 });
     s.addShape("rect", { x: 6.15, y: 1.67, w: 3.5, h: 1.95, fill: { type: "none" }, line: { color: GOLD, width: 1 } });
-    s.addImage({ path: MATERIALS_IMG, x: 6.2, y: 3.75, w: 3.4, h: 1.45 });
+    s.addImage({ data: "jpeg;base64," + MATERIALS_IMG, x: 6.2, y: 3.75, w: 3.4, h: 1.45 });
     s.addShape("rect", { x: 6.15, y: 3.7, w: 3.5, h: 1.5, fill: { type: "none" }, line: { color: GOLD, width: 1 } });
     s.addShape("rect", { x: 6.15, y: 5.28, w: 3.5, h: 0.88, fill: { color: CRIMSON }, line: { color: GOLD, width: 1 } });
     s.addShape("rect", { x: 6.15, y: 5.28, w: 0.08, h: 0.88, fill: { color: GOLD } });
@@ -196,9 +217,9 @@ export async function generatePptx() {
     addHeader(s);
     addFooterLine(s);
     addSlideTitle(s, "05", "Народы России");
-    s.addImage({ path: PEOPLES_IMG, x: 0.4, y: 1.72, w: 3.0, h: 2.1 });
+    s.addImage({ data: "jpeg;base64," + PEOPLES_IMG, x: 0.4, y: 1.72, w: 3.0, h: 2.1 });
     s.addShape("rect", { x: 0.35, y: 1.67, w: 3.1, h: 2.15, fill: { type: "none" }, line: { color: GOLD, width: 1.2 } });
-    s.addImage({ path: COSTUMES_IMG, x: 0.4, y: 3.95, w: 3.0, h: 1.8 });
+    s.addImage({ data: "jpeg;base64," + COSTUMES_IMG, x: 0.4, y: 3.95, w: 3.0, h: 1.8 });
     s.addShape("rect", { x: 0.35, y: 3.9, w: 3.1, h: 1.85, fill: { type: "none" }, line: { color: GOLD, width: 1.2 } });
     s.addShape("rect", { x: 0.35, y: 5.85, w: 3.1, h: 0.75, fill: { color: CRIMSON }, line: { color: GOLD, width: 1 } });
     addRfFlag(s, 0.48, 5.95, 0.5, 0.33);
