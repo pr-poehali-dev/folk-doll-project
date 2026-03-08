@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { generatePptx } from "@/lib/generatePptx";
 
 const DOLL_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/4c3688ec-ab56-48c4-af21-db0dc79b878f.jpg";
 const MATERIALS_IMG = "https://cdn.poehali.dev/projects/65662e75-10e8-4905-861c-946e0cb35e0d/files/aec4ec33-2922-432a-8e88-6484145c9ae5.jpg";
@@ -32,9 +33,16 @@ const PEOPLES = [
 
 export default function Index() {
   const [current, setCurrent] = useState(0);
+  const [downloading, setDownloading] = useState(false);
 
   const prev = () => setCurrent((c) => Math.max(0, c - 1));
   const next = () => setCurrent((c) => Math.min(slides.length - 1, c + 1));
+
+  const handleDownload = async () => {
+    setDownloading(true);
+    await generatePptx();
+    setDownloading(false);
+  };
 
   return (
     <div className="presentation-root">
@@ -583,8 +591,11 @@ export default function Index() {
         >
           ← Назад
         </button>
-        <div className="slide-counter">
-          {current + 1} / {slides.length}
+        <div className="footer-center">
+          <div className="slide-counter">{current + 1} / {slides.length}</div>
+          <button className="download-btn" onClick={handleDownload} disabled={downloading}>
+            {downloading ? "⏳ Создаю файл..." : "⬇ Скачать .pptx"}
+          </button>
         </div>
         <button
           className="nav-btn"

@@ -1255,12 +1255,42 @@ body {
   cursor: not-allowed;
 }
 
+.footer-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
 .slide-counter {
   font-family: var(--font-display);
   font-size: 20px;
   font-weight: 600;
   color: var(--folk-crimson);
   letter-spacing: 2px;
+}
+
+.download-btn {
+  background: var(--folk-gold);
+  color: var(--folk-brown);
+  border: 1.5px solid var(--folk-brown-mid);
+  padding: 5px 20px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.download-btn:hover:not(:disabled) {
+  background: var(--folk-gold-light);
+  border-color: var(--folk-brown);
+}
+
+.download-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
 }
 
 /* ============ АНИМАЦИЯ ============ */
